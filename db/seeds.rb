@@ -14,6 +14,7 @@ array = double_array.flatten
     name: Faker::Educator.subject,
     professor: Faker::Name.unique.name,
     period: array.sample,
+    room: Faker::Address.building_number,
     content: Faker::Lorem.sentence(word_count: 100)
   )
   lesson.save!
