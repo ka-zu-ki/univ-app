@@ -16,14 +16,12 @@ ActiveRecord::Schema.define(version: 2021_02_19_131316) do
   enable_extension "plpgsql"
 
   create_table "lessons", force: :cascade do |t|
-    t.bigint "user_id", null: false
     t.string "name", null: false, comment: "講義名"
     t.string "professor", null: false, comment: "教授名"
     t.string "period", null: false, comment: "時限"
     t.text "content", null: false, comment: "講義内容"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_lessons_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -51,5 +49,4 @@ ActiveRecord::Schema.define(version: 2021_02_19_131316) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
-  add_foreign_key "lessons", "users"
 end

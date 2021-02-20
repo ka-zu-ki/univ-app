@@ -1,7 +1,6 @@
 class CreateLessons < ActiveRecord::Migration[6.1]
   def change
     create_table :lessons do |t|
-      t.references :user, :null => false, foreign_key: true
       t.string :name, :null => false, comment: "講義名"
       t.string :professor, :null => false, comment: "教授名"
       t.string :period, :null => false, comment: "時限"
