@@ -1,7 +1,20 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+en = ['a', 'b', 'c', 'd', 'e']
+num = ['1', '2', '3', '4', '5']
+
+double_array = en.map{|e|
+  num.map{|n|
+    e + '_' + n
+  }
+}
+
+array = double_array.flatten
+
+75.times do
+  lesson = Lesson.new(
+    name: Faker::Educator.subject,
+    professor: Faker::Name.unique.name,
+    period: array.sample,
+    content: Faker::Lorem.sentence(word_count: 100)
+  )
+  lesson.save!
+end
