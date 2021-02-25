@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       } 
       
       resources :lessons
+      get 'time_table_lessons', to: 'lessons#time_table_lessons'
     end
   end
 end

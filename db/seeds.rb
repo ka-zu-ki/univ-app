@@ -9,7 +9,7 @@
 
 # array = double_array.flatten
 
-week = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+week = ["Mon", "Tue", "Wed", "Thu", "Fri"]
 time = [1, 2, 3, 4, 5]
 
 75.times do
