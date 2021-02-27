@@ -16,5 +16,4 @@ class Api::V1::LessonsController < ApplicationController
 
     render json: select_lessons, status: :ok
   end
-
 end
