@@ -12,7 +12,7 @@
 week = ["Mon", "Tue", "Wed", "Thu", "Fri"]
 time = [1, 2, 3, 4, 5]
 
-75.times do
+100.times do
   lesson = Lesson.new(
     name: Faker::Educator.subject,
     professor: Faker::Name.unique.name,
