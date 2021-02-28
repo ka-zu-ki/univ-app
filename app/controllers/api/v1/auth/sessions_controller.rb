@@ -14,7 +14,7 @@ class Api::V1::Auth::SessionsController < ApplicationController
   def logout
     reset_session
 
-    render json: status: 200
+    render json: { status: 200 }
   end
 
   def logged_in?
