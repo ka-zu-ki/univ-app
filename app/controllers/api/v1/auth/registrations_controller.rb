@@ -1,7 +1,19 @@
-class Api::V1::Auth::RegistrationsController < DeviseTokenAuth::RegistrationsController
-  private
+class Api::V1::Auth::RegistrationsController < ApplicationController
+  def signup
+    @user = User.new(registration_params)
 
-  def sign_up_params
-    params.permit(:name, :email, :password, :password_confirmation)
+    if @user.save!
+      login!
+    
+      render json: @user, status: :ok
+    else
+      render json: { status: 500 }
+    end
   end
+
+  private
+  def registration_params
+    params.require(:user).permit(:email, :password, :password_confirmation)
+  end
+  
 end
