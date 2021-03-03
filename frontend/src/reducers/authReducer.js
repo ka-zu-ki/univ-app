@@ -1,17 +1,16 @@
 import { 
   SIGN_UP,
-  SIGN_IN,
-  SIGN_OUT
+  LOG_IN,
+  LOGGED_IN,
+  LOG_OUT
 } from "../actions";
 
 export const initialState = {
-  userInfo: [{
+  user: [{
     id: 0,
-    name: "",
-    email: ""
+    email: "",
   }],
-  isLogin: true
-  // isLogin: false
+  isLogin: false
 }
 
 export const authReducer = (state = initialState, action) => {
@@ -20,16 +19,28 @@ export const authReducer = (state = initialState, action) => {
       return {
         ...state,
         id: action.payload.id,
-        name: action.payload.name,
-        email: action.payload.email
-      }
-    case SIGN_IN:
-      return {
-        ...state,
+        email: action.payload.email,
         isLogin: true
       }
-    case SIGN_OUT:
-      return state
+    case LOG_IN:
+      return {
+        ...state,
+        id: action.payload.id,
+        email: action.payload.email,
+        isLogin: true
+      }
+    case LOGGED_IN:
+      return {
+        ...state,
+        // id: action.payload.id,
+        // email: action.payload.email,
+        isLogin: true
+      }
+    case LOG_OUT:
+      return {
+        ...state,
+        isLogin: false
+      }
     default:
       return state
   }

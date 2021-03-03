@@ -3,9 +3,9 @@ class Api::V1::Auth::RegistrationsController < ApplicationController
     @user = User.new(registration_params)
 
     if @user.save!
-      login!
-    
-      render json: @user, status: :ok
+      if session[:user_id] = @user.id
+        render json: @user, status: :ok
+      end
     else
       render json: { status: 500 }
     end

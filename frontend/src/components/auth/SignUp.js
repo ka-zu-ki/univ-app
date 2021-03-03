@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import AppContext from "../../contexts/AppContext";
 import { fetchSignUp } from "../../apis/index";
@@ -18,25 +18,26 @@ import Container from "@material-ui/core/Container";
 
 const SignUp = () => {
   const classes = useStyles();
+  const history = useHistory()
 
   const { register, handleSubmit } = useForm();
   const { dispatch } = useContext(AppContext);
 
   const onSubmit = async (formValue) => {
-    console.log(formValue);
     const res = await fetchSignUp(formValue);
-    console.log(res.data);
+    console.log(res);
 
     res.status === 200
       ? dispatch({
           type: SIGN_UP,
           payload: {
             id: res.data.id,
-            name: res.data.name,
             email: res.data.email,
           },
         })
       : console.log(res.data.error);
+    
+    history.push('/')
   };
 
   return (
@@ -48,23 +49,10 @@ const SignUp = () => {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign Up
+            新規登録
           </Typography>
           <form className={classes.form} noValidate onSubmit={handleSubmit(onSubmit)}>
             <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  autoComplete="fname"
-                  name="name"
-                  variant="outlined"
-                  required
-                  fullWidth
-                  id="firstName"
-                  label="Name"
-                  autoFocus
-                  inputRef={register}
-                />
-              </Grid>
               <Grid item xs={12}>
                 <TextField
                   variant="outlined"
@@ -90,6 +78,19 @@ const SignUp = () => {
                   inputRef={register}
                 />
               </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  required
+                  fullWidth
+                  name="password_confirmation"
+                  label="PasswordConfirmation"
+                  type="password"
+                  id="password_confirmation"
+                  autoComplete="current-password"
+                  inputRef={register}
+                />
+              </Grid>
             </Grid>
             <Button
               type="submit"
@@ -98,11 +99,11 @@ const SignUp = () => {
               color="primary"
               className={classes.submit}
             >
-              <Link to={"/"}>Sign Up</Link>
+              Sign Up
             </Button>
             <Grid container justify="flex-end">
-              <Grid item>
-                <Link to={"/login"}>登録済みの方はこちらから</Link>
+              <Grid item onClick={() => {history.push('/LogIn')}}>
+                登録済みの方はこちらから
               </Grid>
             </Grid>
           </form>
@@ -126,7 +127,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: "100%", // Fix IE 11 issue.
+    width: "100%",
     marginTop: theme.spacing(3),
   },
   submit: {
