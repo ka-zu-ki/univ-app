@@ -1,4 +1,7 @@
 class User < ApplicationRecord
+  has_many :myclasses
+  has_many :lessons, through: :myclasses
+
   has_secure_password
 
   validates :email, presence: true

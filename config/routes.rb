@@ -9,8 +9,10 @@ Rails.application.routes.draw do
         get '/logged_in', to: 'sessions#logged_in?'
       end
 
-      resources :lessons do
-        resources :myclasses
+      resources :lessons
+
+      scope '/myclasses' do
+        post 'lessons/:lesson_id', to: 'myclasses#create'
       end
 
       get 'time_table_lessons', to: 'lessons#time_table_lessons'
