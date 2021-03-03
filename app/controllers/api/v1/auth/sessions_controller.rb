@@ -3,9 +3,9 @@ class Api::V1::Auth::SessionsController < ApplicationController
     @user = User.find_by(email: params[:email])
 
     if @user && @user.authenticate(params[:password])
-      if session[:user_id] = @user.id
-        render json: { user: @user }
-      end
+      session[:user_id] = @user.id
+
+      render json: { user: @user }
     else
       render json: { status: 401, error: ['ログインに失敗しました'] }
     end
@@ -13,19 +13,18 @@ class Api::V1::Auth::SessionsController < ApplicationController
 
   def logout
     reset_session
-    session[:user_id] = nil
+    @current_user = nil
     
-    if session[:user_id] = nil
-      render json: { status: 200 }
-    end
+    render json: { status: 200, user: @current_user }
   end
 
   def logged_in?
-    if session[:user_id]
-      @current_user ||= User.find_by(id: session[:user_id])
+    @current_user = @current_user || User.find_by(id: session[:user_id])
+    if @current_user
+      render json: { user: @current_user }
+    else
+      render json: { status: 204 }
     end
-    
-    render json: { user: @current_user }
   end
   
   private
@@ -33,4 +32,7 @@ class Api::V1::Auth::SessionsController < ApplicationController
     params.require(:user).permit(:email, :password)
   end
 
+  # def current_user
+  #   current_user = current_user || User.find_by(id: session[:user_id])
+  # end
 end
