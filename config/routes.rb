@@ -10,6 +10,8 @@ Rails.application.routes.draw do
       end
 
       resources :lessons
+      
+      resources :myclasses, only: [:index]
 
       scope '/myclasses' do
         post 'lessons/:lesson_id', to: 'myclasses#create'
