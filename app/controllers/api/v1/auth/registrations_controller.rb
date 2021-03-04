@@ -1,11 +1,11 @@
 class Api::V1::Auth::RegistrationsController < ApplicationController
   def signup
-    @user = User.new(registration_params)
+    user = User.new(registration_params)
 
-    if @user.save!
-      if session[:user_id] = @user.id
-        render json: @user, status: :ok
-      end
+    if user.save!
+      session[:user_id] = user.id
+      
+      render json: user, status: :ok
     else
       render json: { status: 500 }
     end
