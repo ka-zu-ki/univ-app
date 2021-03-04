@@ -1,9 +1,31 @@
 /** @jsxImportSource @emotion/react */
 
-import React from "react";
+import React, { useState, useContext } from "react";
 import { css } from "@emotion/react";
 
+import AppContext from "../contexts/AppContext";
+import { fetchPostLesson } from "../apis";
+
 const Modal = ({ open, setOpen, lessons, loading }) => {
+  const [selected, setSelected] = useState([])
+  const {state, dispatch } = useContext(AppContext)
+  console.log(selected)
+  console.log(state.id)
+
+  const postDate = async (selectedLessonId, userId) => {
+    const res = await fetchPostLesson(selectedLessonId, userId)
+    const registeredLesson = res.data
+    console.log(registeredLesson)
+  }
+  
+  const handleClick = () => {
+    const selectedLessonId = selected
+    const userId = state.id
+    
+    postDate(selectedLessonId, userId)
+    setOpen(false)
+  }
+
   return (
     <>
       {open ? (
@@ -13,9 +35,17 @@ const Modal = ({ open, setOpen, lessons, loading }) => {
             {loading ? (
               <p>ローディング中・・・</p>
               ) : (
-              lessons.map((lesson, index) => <p key={index}>{lesson.name}</p>)
+              lessons.map((lesson) => (
+                <p 
+                  key={lesson.id} 
+                  onClick={() => setSelected(lesson.id)}
+                  css={[selected === lesson.id && selectedCss, cursorCss]}
+                >
+                  {lesson.name}
+                </p>
+              )) 
             )}
-            <button onClick={() => setOpen(false)}>授業を選択する</button>
+            <button onClick={() => handleClick()}>授業を選択する</button>
           </div>
         </div>
       ) : (
@@ -45,4 +75,12 @@ const contentCss = css`
   padding: 1em;
   background: #fff;
   opacity: 1;
-`;
+  `;
+
+const cursorCss = css`
+  cursor: pointer;
+`
+
+const selectedCss = css`
+  background-color: #F7F7F8;
+`
