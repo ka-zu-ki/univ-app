@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_27_013431) do
+ActiveRecord::Schema.define(version: 2021_03_05_034325) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,17 @@ ActiveRecord::Schema.define(version: 2021_02_27_013431) do
     t.index ["user_id"], name: "index_myclasses_on_user_id"
   end
 
+  create_table "todos", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "myclass_id", null: false
+    t.string "name"
+    t.boolean "is_completed"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["myclass_id"], name: "index_todos_on_myclass_id"
+    t.index ["user_id"], name: "index_todos_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.string "password_digest"
@@ -51,4 +62,6 @@ ActiveRecord::Schema.define(version: 2021_02_27_013431) do
 
   add_foreign_key "myclasses", "lessons"
   add_foreign_key "myclasses", "users"
+  add_foreign_key "todos", "myclasses"
+  add_foreign_key "todos", "users"
 end

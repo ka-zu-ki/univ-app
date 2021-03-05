@@ -11,13 +11,15 @@ Rails.application.routes.draw do
 
       resources :lessons
       
-      resources :myclasses, only: [:index]
+      resources :myclasses, only: [:index, :show]
 
       scope '/myclasses' do
         post 'lessons/:lesson_id', to: 'myclasses#create'
       end
 
       get 'time_table_lessons', to: 'lessons#time_table_lessons'
+
+      resources :todos
     end
   end
 end
