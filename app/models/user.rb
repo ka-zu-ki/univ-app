@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_many :myclasses
   has_many :lessons, through: :myclasses
+  has_many :todos
 
   has_secure_password
 

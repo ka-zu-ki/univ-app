@@ -45,4 +45,11 @@ class Api::V1::MyclassesController < ApplicationController
     
     render json: myclass
   end
+
+  def show
+    myclass = Myclass.find_by(id: params[:id], user_id: params[:user_id])
+
+    render json: myclass
+  end
+  
 end
