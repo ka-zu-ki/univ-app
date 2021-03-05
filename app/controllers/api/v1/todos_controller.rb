@@ -23,7 +23,24 @@ class Api::V1::TodosController < ApplicationController
       render json:  todo.errors, status: 500
     end
   end
-  
+
+  def destroy
+    if Todo.destroy(params[:id])
+      head :no_content
+    else
+      render json: { error: "Failed to destroy" }, status: 422
+    end
+  end
+
+  def destroy_all
+    todos = Todo.where(user_id: params[:user_id], myclass_id: params[:myclass_id])
+
+    if todos.destroy_all
+      head :no_content
+    else
+      render json: { error: "Failed to destroy" }, status: 422
+    end
+  end
   
   private
   def todo_params
