@@ -45,8 +45,8 @@ ActiveRecord::Schema.define(version: 2021_03_05_034325) do
   create_table "todos", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "myclass_id", null: false
-    t.string "name"
-    t.boolean "is_completed"
+    t.string "name", null: false
+    t.boolean "is_completed", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["myclass_id"], name: "index_todos_on_myclass_id"

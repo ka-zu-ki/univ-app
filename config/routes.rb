@@ -11,7 +11,9 @@ Rails.application.routes.draw do
 
       resources :lessons
       
-      resources :myclasses, only: [:index, :show]
+      resources :myclasses, only: [:index, :show] do
+        resources :todos
+      end
 
       scope '/myclasses' do
         post 'lessons/:lesson_id', to: 'myclasses#create'
