@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_04_064449) do
+ActiveRecord::Schema.define(version: 2021_02_27_013431) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,11 +29,15 @@ ActiveRecord::Schema.define(version: 2021_03_04_064449) do
   create_table "myclasses", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "lesson_id", null: false
+    t.string "name", null: false, comment: "講義名"
+    t.string "professor", null: false, comment: "教授名"
+    t.string "week", null: false, comment: "曜日"
+    t.integer "time", null: false, comment: "時限"
+    t.integer "room", null: false, comment: "教室番号"
+    t.text "content", null: false, comment: "講義内容"
+    t.boolean "active", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "active", default: false, null: false
-    t.string "week", default: "", null: false
-    t.integer "time", default: 0, null: false
     t.index ["lesson_id"], name: "index_myclasses_on_lesson_id"
     t.index ["user_id"], name: "index_myclasses_on_user_id"
   end

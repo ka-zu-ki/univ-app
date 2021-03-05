@@ -19,16 +19,24 @@ class Api::V1::MyclassesController < ApplicationController
       myclass = Myclass.new(
         lesson_id: new_lesson.id,
         user_id: params[:user_id],
+        name: new_lesson.name,
+        professor: new_lesson.professor,
         week: new_lesson.week,
         time: new_lesson.time,
+        room: new_lesson.room,
+        content: new_lesson.content,
         active: true
       )
     else
       myclass = Myclass.new(
         lesson_id: new_lesson.id, 
         user_id: params[:user_id],
+        name: new_lesson.name,
+        professor: new_lesson.professor,
         week: new_lesson.week,
         time: new_lesson.time,
+        room: new_lesson.room,
+        content: new_lesson.content,
         active: true
       )
     end
