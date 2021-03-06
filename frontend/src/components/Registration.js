@@ -12,7 +12,7 @@ const Registration = () => {
   const [lessons, setLessons] = useState([]);
   const [loading, setLoading] = useState(false);
   const weeks = ["Mon", "Tue", "Wed", "Thu", "Fri"];
-  const { state, dispatch } = useContext(AppContext);
+  const { state } = useContext(AppContext);
   const userId = state.id;
   const [registeredLessons, setRegisteredLessons] = useState([]);
   console.log(userId);
@@ -36,17 +36,17 @@ const Registration = () => {
     fetchData(week, time);
   };
 
+  const fetchLessons = async (userId) => {
+    const res = await fetchRegisteredLessons(userId);
+    const registeredLessons = res.data;
+
+    setRegisteredLessons(registeredLessons);
+    console.log(registeredLessons);
+  };
+
   useEffect(() => {
-    const fetchLessons = async (userId) => {
-      const res = await fetchRegisteredLessons(userId);
-      const registeredLessons = res.data;
-
-      setRegisteredLessons(registeredLessons);
-      console.log(registeredLessons);
-    };
-
     fetchLessons(userId);
-  }, [open]);
+  }, [open, userId]);
 
   return (
     <>
@@ -72,7 +72,7 @@ const Registration = () => {
                   registeredLesson.time === 1 ? (
                     <p key={registeredLesson.id}>{registeredLesson.name}</p>
                   ) : (
-                    <></>
+                    <div key={registeredLesson.id}></div>
                   )
                 ))}
               </td>
@@ -91,7 +91,7 @@ const Registration = () => {
                   registeredLesson.time === 2 ? (
                     <p key={registeredLesson.id}>{registeredLesson.name}</p>
                   ) : (
-                    <></>
+                    <div key={registeredLesson.id}></div>
                   )
                 ))}
               </td>
@@ -110,7 +110,7 @@ const Registration = () => {
                   registeredLesson.time === 3 ? (
                     <p key={registeredLesson.id}>{registeredLesson.name}</p>
                   ) : (
-                    <></>
+                    <div key={registeredLesson.id}></div>
                   )
                 ))}
               </td>
@@ -129,7 +129,7 @@ const Registration = () => {
                   registeredLesson.time === 4 ? (
                     <p key={registeredLesson.id}>{registeredLesson.name}</p>
                   ) : (
-                    <></>
+                    <div key={registeredLesson.id}></div>
                   )
                 ))}
               </td>
@@ -148,7 +148,7 @@ const Registration = () => {
                   registeredLesson.time === 5 ? (
                     <p key={registeredLesson.id}>{registeredLesson.name}</p>
                   ) : (
-                    <></>
+                    <div key={registeredLesson.id}></div>
                   )
                 ))}
               </td>

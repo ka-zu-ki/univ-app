@@ -1,5 +1,6 @@
 import axios from "axios";
 import {
+  BASE_URL,
   SIGN_UP_URL,
   LOG_IN_URL,
   LOGGED_IN_URL,
@@ -47,8 +48,10 @@ export const fetchCheckLogin = (params) => {
 }
 
 export const fetchLogOut = () => {
-  return axios.delete(LOG_OUT_URL),
-  { withCredentials: true }
+  return axios.delete(
+    LOG_OUT_URL,
+    { withCredentials: true }
+  )
 }
 
 export const fetchLessons = () => {
@@ -78,4 +81,41 @@ export const fetchRegisteredLessons = (user_id) => {
 
 export const fetchRegisteredLesson = (id, user_id) => {
   return axios.get(REGISTERED_LESSON_URL + id, {params: {user_id: user_id}})
+}
+
+export const fetchTodos = (myclass_id, user_id) => {
+  return axios.get(
+    BASE_URL + `/myclasses/${myclass_id}/todos`,
+    {params: {user_id: user_id}}
+  )
+}
+
+export const postTodo = (myclass_id, user_id, content) => {
+  return axios.post(
+    BASE_URL + `/myclasses/${myclass_id}/todos`, {
+      todo: {
+        name: content
+      },
+      user_id: user_id
+    })
+}
+
+export const updateTodo = (myclass_id, id, user_id, content) => {
+  return axios.put(BASE_URL + `/myclasses/${myclass_id}/todos/${id}`, {
+    todo: {
+      name: content
+    },
+    user_id: user_id
+  })
+}
+
+export const deleteTodo = (myclass_id, id) => {
+  return axios.delete(BASE_URL + `/myclasses/${myclass_id}/todos/${id}`)
+}
+
+export const deleteTodos = (myclass_id, user_id) => {
+  return axios.delete(
+    BASE_URL + `/myclasses/${myclass_id}/todos`, 
+    {params: {user_id: user_id}}
+  )
 }

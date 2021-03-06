@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 
 import { fetchRegisteredLesson } from "../apis";
 import AppContext from "../contexts/AppContext";
+import TodoList from './TodoList';
 
 const Mylesson = () => {
   const { id } = useParams();
@@ -12,13 +13,18 @@ const Mylesson = () => {
   const userId = state.id;
 
   useEffect(() => {
-    const fetchData = async () => {
+    let unmounted = false
+
+    const fetchData = async () => {  
       try {
         setLoading(true);
 
         const res = await fetchRegisteredLesson(id, userId);
         const lesson = res.data;
-        setLesson(lesson);
+
+        if (!unmounted) {
+          setLesson(lesson);
+        }
 
         setLoading(false);
       } catch {
@@ -27,7 +33,13 @@ const Mylesson = () => {
     };
 
     fetchData();
-  }, []);
+
+    const cleanup = () => {
+      unmounted = true
+    }
+
+    return cleanup
+  }, [id, userId]);
 
   return (
     <>
@@ -41,11 +53,12 @@ const Mylesson = () => {
           教授
           <p>{lesson.professor}</p>
           時限
-          <p>{lesson.period}</p>
+          <p>{lesson.week}{lesson.time}</p>
           教室
           <p>{lesson.room}</p>
-          講義内容
-          <p>{lesson.content}</p>
+
+          <h2>Todo List</h2>
+            <TodoList id={id} user_id={userId}/>
         </>
       )}
     </>

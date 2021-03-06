@@ -3,9 +3,9 @@ class Api::V1::Auth::SessionsController < ApplicationController
     if !current_user.nil?
       render json: { user: current_user }
     else
-      user = User.find_by(email: params[:email])
+      user = User.find_by(email: session_params[:email])
       
-      if user && @user.authenticate(params[:password])
+      if user && user.authenticate(session_params[:password])
         session[:user_id] = user.id
         
         render json: { user: user }

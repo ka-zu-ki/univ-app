@@ -14,15 +14,25 @@ const TimetableLessons = () => {
   const userId = state.id;
 
   useEffect(() => {
+    let unmounted = false
+
     const fetchLessons = async (userId) => {
       const res = await fetchRegisteredLessons(userId);
       const registeredLessons = res.data;
-
-      setRegisteredLessons(registeredLessons);
+  
+      if (!unmounted) {
+        setRegisteredLessons(registeredLessons);
+      }
     };
 
     fetchLessons(userId);
-  }, []);
+
+    const cleanup = () => {
+      unmounted = true
+    }
+
+    return cleanup
+  }, [userId]);
 
   return (
     <>
@@ -42,19 +52,18 @@ const TimetableLessons = () => {
             <th>1</th>
             {weeks.map((week, index) => (
               <td key={index} css={tdCss}>
-                {registeredLessons.map((registeredLesson) =>
+                {registeredLessons.map((registeredLesson, index) =>
                   registeredLesson.week === week &&
                   registeredLesson.time === 1 ? (
                     <p 
                       key={registeredLesson.id}
-                      
                     >
                       <Link to={`/mylesson/${registeredLesson.id}`} key={registeredLesson.id}>
                         {registeredLesson.name}
                       </Link>
                     </p>
                   ) : (
-                    <></>
+                    <div key={registeredLesson.id}></div>
                   )
                 )}
               </td>
@@ -73,7 +82,7 @@ const TimetableLessons = () => {
                       </Link>
                     </p>
                   ) : (
-                    <></>
+                    <div key={registeredLesson.id}></div>
                   )
                 )}
               </td>
@@ -92,7 +101,7 @@ const TimetableLessons = () => {
                       </Link>
                     </p>
                   ) : (
-                    <></>
+                    <div key={registeredLesson.id}></div>
                   )
                 )}
               </td>
@@ -111,7 +120,7 @@ const TimetableLessons = () => {
                       </Link>
                     </p>
                   ) : (
-                    <></>
+                    <div key={registeredLesson.id}></div>
                   )
                 )}
               </td>
@@ -130,7 +139,7 @@ const TimetableLessons = () => {
                       </Link>
                     </p>
                   ) : (
-                    <></>
+                    <div key={registeredLesson.id}></div>
                   )
                 )}
               </td>
