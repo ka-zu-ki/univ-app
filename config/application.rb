@@ -29,7 +29,7 @@ module UniversityApp
         origins "http://localhost:3001"
         resource "*",
           headers: :any,
-          methods: [:get, :post, :options, :head],
+          methods: [:get, :post, :delete, :put, :show, :options, :head],
           credentials: true
       end
     end
