@@ -9,7 +9,7 @@ class CreateMyclasses < ActiveRecord::Migration[6.1]
       t.integer :time, :null => false, comment: "時限"
       t.integer :room, :null => false, comment: "教室番号"
       t.text :content, :null => false, comment: "講義内容"
-      t.boolean :active, null: false
+      t.boolean :active, default: false, null: false
       t.timestamps
     end
   end
