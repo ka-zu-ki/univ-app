@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 2021_03_05_034325) do
     t.integer "time", null: false, comment: "時限"
     t.integer "room", null: false, comment: "教室番号"
     t.text "content", null: false, comment: "講義内容"
-    t.boolean "active", null: false
+    t.boolean "active", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["lesson_id"], name: "index_myclasses_on_lesson_id"

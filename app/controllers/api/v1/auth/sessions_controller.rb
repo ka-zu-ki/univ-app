@@ -8,7 +8,7 @@ class Api::V1::Auth::SessionsController < ApplicationController
       if user && user.authenticate(session_params[:password])
         session[:user_id] = user.id
         
-        render json: { user: user }
+        render json: { status: 200, user: user }
       else
         render json: { status: 401, error: ['ログインに失敗しました'] }
       end
@@ -24,7 +24,7 @@ class Api::V1::Auth::SessionsController < ApplicationController
 
   def logged_in?
     if current_user
-      render json: { user: current_user }
+      render json: { status: 200, user: current_user }
     else
       render json: { status: 204 }
     end
