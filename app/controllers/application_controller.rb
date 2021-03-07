@@ -4,7 +4,7 @@ class ApplicationController < ActionController::API
   before_action :slow_load
   
   def slow_load
-    sleep(0.5)
+    sleep(1)
   end
 
   def current_user
