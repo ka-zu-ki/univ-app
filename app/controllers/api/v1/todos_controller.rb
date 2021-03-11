@@ -17,7 +17,7 @@ class Api::V1::TodosController < ApplicationController
 
   def update
     todo = Todo.find(params[:id])
-    if todo.update(name: todo_params[:name], is_completed: todo_params[:is_completed])
+    if todo.update(name: todo_params[:name])
       render json: todo
     else
       render json:  todo.errors, status: 500
