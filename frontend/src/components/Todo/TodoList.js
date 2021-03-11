@@ -1,5 +1,10 @@
+/** @jsxImportSource @emotion/react */
+
 import React, { useEffect, useState } from 'react'
 import { useHistory } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
 import { 
   fetchTodos,
@@ -8,9 +13,25 @@ import {
   deleteTodos,
 } from "../../apis";
 
+import { pageTitleCss, sectionTitleCss } from "../../components/Style/Object/Component/title";
+import { innerCss } from "../Style/Layout/main";
+import { marginTop30Css } from "../../components/Style/Object/Utility/margin";
+import { 
+  completedTodoCss,
+  unCompletedTodoCss,
+  todoIconCss,
+  todoCheckCss
+} from "../Style/Object/Project/todo";
+import { 
+  deleteButton,
+  createButton,
+} from "../Style/Object/Component/button";
+
 const TodoList = ({ id, user_id }) => {
   const [todos, setTodos] = useState([])
   const history = useHistory()
+  const isCompleted = todos.filter((todo) => todo.is_completed)
+  console.log(isCompleted)
 
   useEffect(() => {
     let unmounted = false
@@ -56,65 +77,39 @@ const TodoList = ({ id, user_id }) => {
   }
 
   return (
-    <>
-      <h3>未完了</h3>
+    <div css={innerCss}>
+      <div css={pageTitleCss}>Todo</div>
+      <div css={sectionTitleCss}>未完了</div>
       {
         todos.map((todo, index) => {
           if (todo.is_completed === false) {
             return (
               <React.Fragment key={todo.id}>
                 <ul>
-                  <li>
+                  <li css={marginTop30Css}>
                     <input
                       type="checkbox"
+                      css={todoCheckCss}
                       value={todo}
                       onClick={() => handleClick(todo, index)}
                     />
-                    <label>{todo.name}</label>
-                    <button onClick={() => handleClickDelete(todo.id)}>削除</button>
-                    <button onClick={() => 
-                      history.push(`/mylesson/${id}/edit_todo`,
-                        { 
-                          name: todo.name,
-                          todoId: todo.id
-                        }
-                      )
-                    }>
-                      編集
-                    </button>
-                  </li>
-                </ul>
-              </React.Fragment>
-            )
-          }
-        })
-      }
-
-      <h3>完了</h3>
-      {
-        todos.map((todo, index) => {
-          if (todo.is_completed !== false) {
-            return (
-              <React.Fragment key={todo.id}>
-                <ul>
-                  <li>
-                    <input
-                      type="checkbox"
-                      value={todo.name}
-                      onClick={() => handleClick(todo, index)}
+                    <label css={unCompletedTodoCss}>{todo.name}</label>
+                    <FontAwesomeIcon
+                      icon={faEdit}
+                      css={todoIconCss}
+                      onClick={() => 
+                        history.push(`/mylesson/${id}/edit_todo`,
+                          { 
+                            name: todo.name,
+                            todoId: todo.id
+                          }
+                      )}
                     />
-                    <label>{todo.name}</label>
-                    <button onClick={() => handleClickDelete(todo.id)}>削除</button>
-                    <button onClick={() => 
-                      history.push(`/mylesson/${id}/edit_todo`,
-                        { 
-                          name: todo.name,
-                          todoId: todo.id
-                        }
-                      )
-                    }>
-                      編集
-                    </button>
+                    <FontAwesomeIcon
+                      icon={faTrashAlt}
+                      css={todoIconCss}
+                      onClick={() => handleClickDelete(todo.id)}
+                    />
                   </li>
                 </ul>
               </React.Fragment>
@@ -123,15 +118,45 @@ const TodoList = ({ id, user_id }) => {
         })
       }
       
-      <button onClick={handleClickDeleteAll}>全て削除</button>
+      <div css={sectionTitleCss}>完了</div>
+      {
+        todos.map((todo, index) => {
+          if (todo.is_completed !== false) {
+            return (
+              <React.Fragment key={todo.id}>
+                <ul>
+                  <li css={marginTop30Css}>
+                    <input
+                      type="checkbox"
+                      css={todoCheckCss}
+                      value={todo.name}
+                      onClick={() => handleClick(todo, index)}
+                      defaultChecked 
+                    />
+                    <label css={completedTodoCss}>{todo.name}</label>
+                  </li>
+                </ul>
+              </React.Fragment>
+            )
+          }
+        })
+      }
+      
       <button 
+        css={deleteButton}
+        onClick={handleClickDeleteAll}
+      >
+        全て削除
+      </button>
+      <button 
+        css={createButton}
         onClick={() => {
           history.push(`/mylesson/${id}/new_todo`)
         }}
       >
         Nwe Todo
       </button>
-    </>
+    </div>
   )
 }
 
