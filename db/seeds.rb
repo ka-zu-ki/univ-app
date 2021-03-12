@@ -24,3 +24,5 @@ time = [1, 2, 3, 4, 5]
   )
   lesson.save!
 end
+
+User.create!(email: "test@example.com", password: "123456", password_confirmation: "123456")
