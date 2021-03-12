@@ -5,6 +5,8 @@
 ユーザー視点でもっと良くすることができるという思いから作りました。
 
 Rails APIモード + Reactで作成
+*デプロイの都合でフロントエンドのレポジトリを分離しています
+https://github.com/ka-zu-ki/univ-app-front
 
 # 問題点、改善点
 
