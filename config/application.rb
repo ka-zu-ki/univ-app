@@ -27,8 +27,7 @@ module UniversityApp
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         
-        origins "http://localhost:3001", "https://univ-app-front-hqb5w8o4s-ka-zu-ki.vercel.app", "https://univ-app-front-hjodszloq-ka-zu-ki.vercel.app",
-        "https://univ-app-front-dvzhumh7v-ka-zu-ki.vercel.app"
+        origins "http://localhost:3001", "https://univ-app-front-i4ta2nve2-ka-zu-ki.vercel.app", "https://univ-app-front-nlkme3g0p-ka-zu-ki.vercel.app"
         resource "*",
           headers: :any,
           methods: [:get, :post, :delete, :put, :show, :options, :head],
