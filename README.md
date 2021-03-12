@@ -45,7 +45,9 @@ SPA化してページ遷移を速くする
   - useReducer
   - useContext
 - axios 0.21.1
+- emotion 11.1.5
 - react-router-dom 5.2.0
+- react-hook-form 6.15.1
 
 ## データベース
 
