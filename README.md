@@ -6,7 +6,7 @@
 
 Rails APIモード + Reactで作成
 
-*デプロイの都合でフロントエンドのレポジトリを分離しています
+*デプロイの都合上、フロントエンドのレポジトリを分離しています
 
 https://github.com/ka-zu-ki/univ-app-front
 
