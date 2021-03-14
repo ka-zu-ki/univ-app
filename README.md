@@ -40,6 +40,8 @@ SPA化してページ遷移を速くする
 - gem 'faker'
 - gem 'active_model_serializers'
 - gem 'pry-rails'
+- gem 'rspec-rails'
+- gem 'factory_bot_rails'
 
 ## フロントエンド
 
@@ -59,6 +61,10 @@ SPA化してページ遷移を速くする
 
 PostgreSQL
 
+## テスト
+
+RSpec
+
 ## デプロイ
 
 Heroku(バックエンド）
@@ -74,7 +80,6 @@ Vercel(フロントエンド）
 
 # 今後追加したい機能
 
--  テスト（現在進行中）
 -  出席カウント
 -  Googleカレンダー同期
 -  授業検索機能
