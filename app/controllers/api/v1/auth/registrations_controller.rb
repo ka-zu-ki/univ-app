@@ -4,7 +4,7 @@ class Api::V1::Auth::RegistrationsController < ApplicationController
 
     if user.save!
       session[:user_id] = user.id
-      
+
       render json: user, status: :ok
     else
       render json: { status: 500 }
@@ -12,6 +12,7 @@ class Api::V1::Auth::RegistrationsController < ApplicationController
   end
 
   private
+
   def registration_params
     params.require(:user).permit(:email, :password, :password_confirmation)
   end
