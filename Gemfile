@@ -45,3 +45,5 @@ gem 'bcrypt'
 gem 'faker'
 gem 'active_model_serializers'
 gem 'pry-rails'
+gem 'rubocop', require:false
+gem 'rubocop-rails', require:false
