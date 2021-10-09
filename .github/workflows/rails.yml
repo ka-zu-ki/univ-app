@@ -18,4 +18,7 @@ jobs:
         with:
           ruby-version: 2.6.6
       - name: rubocop
-        uses: bundle exec rubocop
+        uses: reviewdog/action-rubocop@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          rubocop_flags: --config univ-app/.rubocop.yml univ-app/
