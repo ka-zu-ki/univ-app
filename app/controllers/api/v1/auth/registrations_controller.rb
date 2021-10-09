@@ -7,13 +7,18 @@ class Api::V1::Auth::RegistrationsController < ApplicationController
 
       render json: user, status: :ok
     else
+
       render json: { status: 500 }
+    
     end
   end
 
   private
 
+
+
   def registration_params
+  
     params.require(:user).permit(:email, :password, :password_confirmation)
   end
 end
