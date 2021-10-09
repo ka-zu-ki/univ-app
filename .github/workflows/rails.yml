@@ -21,4 +21,3 @@ jobs:
         uses: reviewdog/action-rubocop@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          rubocop_flags: --config .rubocop.yml
