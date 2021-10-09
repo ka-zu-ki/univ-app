@@ -16,9 +16,3 @@ jobs:
       - uses: actions/checkout@v2
       - name: rubocop
         uses: reviewdog/action-rubocop@v1
-        # with:
-        #   rubocop_version: 0.93.0
-        #   github_token: ${{ secrets.GITHUB_TOKEN }}
-        #   rubocop_flags: --config backend/.rubocop.yml backend/
-        #   rubocop_extensions: meowcop
-        #   reporter: github-pr-check
