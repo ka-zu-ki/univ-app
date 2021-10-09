@@ -27,3 +27,4 @@
 /config/master.key
 
 .rubocop.yml
+.github
