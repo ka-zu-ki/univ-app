@@ -19,10 +19,11 @@ jobs:
           ruby-version: 2.6.6
       - name: Build and setup
         run: |
-          gem install bundler
-          bundle install
+          gem install bundler --no-document -v $(grep "BUNDLED WITH" -1 Gemfile.lock | tail -n 1)
+          bundle install --jobs 4 --retry 3
       - name: Run rspec
         run: bundle exec rspec
+
       # - name: rubocop
         # uses: reviewdog/action-rubocop@v1
         # with:
