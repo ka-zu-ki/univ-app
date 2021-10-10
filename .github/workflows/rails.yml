@@ -10,26 +10,16 @@ on:
 # 実行内容
 jobs:
   rubocop:
-    name: Run rubocop
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/cache@v2
-        with:
-          path: vendor/bundle
-          key: bundle-${{ hashFiles('**/Gemfile.lock') }}
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: 2.6.6
-      - name: Build and setup
-        run: |
-          bundle update rails
-          gem install bundler --no-document -v $(grep "BUNDLED WITH" -1 Gemfile.lock | tail -n 1)
-          bundle install --jobs 4 --retry 3
-      - name: Run rubocop
-        run: bundle exec rubocop
-
-      # - name: rubocop
-        # uses: reviewdog/action-rubocop@v1
-        # with:
-          # github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: rubocop
+        uses: reviewdog/action-rubocop@v1
+        with:
+          rubocop_version: gemfile
+          rubocop_extensions: rubocop-rails:gemfile
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review
