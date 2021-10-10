@@ -17,7 +17,13 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: 2.6.6
-      - name: rubocop
-        uses: reviewdog/action-rubocop@v1
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and setup
+        run: |
+          gem install bundler
+          bundle install
+      - name: Run rspec
+        run: bundle exec rspec
+      # - name: rubocop
+        # uses: reviewdog/action-rubocop@v1
+        # with:
+          # github_token: ${{ secrets.GITHUB_TOKEN }}
