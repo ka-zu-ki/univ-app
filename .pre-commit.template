@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+
+PATH=$PATH:/usr/local/bin:/usr/local/sbin
+
+# Allows us to read user input below, assigns stdin to keyboard
+exec < /dev/tty
+
+while true; do
+  read -p "[post-commit hook] Check for rubocop? (Y/n) " yn
+  if [ "$yn" = "" ]; then
+    yn='Y'
+  fi
+  case $yn in
+      [Yy] ) docker-compose run --rm app bundle exec rubocop -a; break;;
+      [Nn] ) exit;;
+      * ) echo "Please answer y or n for yes or no.";;
+  esac
+done
