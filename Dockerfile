@@ -23,5 +23,3 @@ RUN gem install bundler && \
 COPY . ${APP_ROOT}
 
 EXPOSE 3000
-
-CMD ["bin/rails", "server", "-b", "0.0.0.0"]
